@@ -315,10 +315,11 @@ func (cs *ChainService) Receive(context actor.Context) {
 			StopNumber: stopNo,
 		})
 	case *message.GetAnchors:
-		anchor, err := cs.getAnchorsNew()
+		anchor, lastNo, err := cs.getAnchorsNew()
 		context.Respond(message.GetAnchorsRsp{
-			anchor,
-			err,
+			Hashes: anchor,
+			LastNo: lastNo,
+			Err:    err,
 		})
 	case *message.GetAncestor:
 		hashes := msg.Hashes
